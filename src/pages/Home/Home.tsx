@@ -1,10 +1,9 @@
-import React from 'react';
+import React from "react";
 
-export type HomeProps = {
-}
+export type HomeProps = {};
 
 const Home: React.FC<HomeProps> = () => {
-	return <div >Home</div>;
+  return <div>Home</div>;
 };
 
 export default Home;
