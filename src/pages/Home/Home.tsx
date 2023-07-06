@@ -28,20 +28,18 @@ const columns = [
 
 const Home: React.FC<HomeProps> = () => {
   return (
-    <div>
-      <DataGrid
-        rows={People}
-        columns={columns}
-        disableColumnSelector
-        disableRowSelectionOnClick
-        autoHeight
-        initialState={{
-          pagination: { paginationModel: { pageSize: 5 } },
-        }}
-        pageSizeOptions={[5, 10, 25]}
-        getRowId={(row: any) => row.id}
-      />
-    </div>
+    <DataGrid
+      rows={People}
+      columns={columns}
+      disableColumnSelector
+      disableRowSelectionOnClick
+      autoHeight
+      initialState={{
+        pagination: { paginationModel: { pageSize: 5 } },
+      }}
+      pageSizeOptions={[5, 10, 25]}
+      getRowId={(row: any) => row.id}
+    />
   );
 };
 
