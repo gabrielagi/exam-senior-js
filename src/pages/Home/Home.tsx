@@ -23,9 +23,10 @@ const Home: React.FC<HomeProps> = () => {
         disableColumnSelector
         disableRowSelectionOnClick
         autoHeight
-        rowHeight={pagesize}
-        //pageSize={pagesize}
-        //rowsPerPageOptions={[pagesize]}
+        initialState={{
+          pagination: { paginationModel: { pageSize: 5 } },
+        }}
+        pageSizeOptions={[5, 10, 25]}
       />
     </div>
   );
