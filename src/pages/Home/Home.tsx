@@ -19,18 +19,17 @@ const [selectedPeople, setSelectedPeople] = useState<Person[]>([]);
 const columns = [
   {
     field: "actions",
-    headerName: "",
+    headerName: "Confirmed",
     minWidth: 50,
-    renderCell: (params: GridRenderCellParams) => {
-      <>
-        <Checkbox
-          size="small"
-          checked={findPerson(params.row.id)}
-          onChange={() => handleChange(params.row.id)}
-        />
-      </>;
-    },
+    renderCell: (params: GridRenderCellParams) => (
+      <Checkbox
+        size="small"
+        checked={findPerson(params.row.id)}
+        onChange={() => handleChange(params.row.id)}
+      />
+    ),
   },
+
   {
     field: "name",
     headerName: "Name",
