@@ -14,9 +14,5 @@ export const peopleSlice = createSlice({
       setLocalStorage(LocalStorageTypes.PEOPLE, state);
       return action.payload;
     },
-    addFavorites: (state, action) => {
-      setLocalStorage(LocalStorageTypes.PEOPLE, state);
-      return action.payload;
-    },
   },
 });
