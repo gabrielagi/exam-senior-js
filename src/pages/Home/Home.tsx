@@ -3,18 +3,24 @@ import { DataGrid, GridRenderCellParams } from "@mui/x-data-grid";
 import { People } from "@/data/people";
 import { Person } from "@/models";
 import { Checkbox } from "@mui/material";
+import { useDispatch } from "react-redux";
+import { addFavorites } from "@/redux/states";
 
 export interface HomeInterface {}
 
 const Home: React.FC<HomeInterface> = () => {
+  const dispatch = useDispatch();
+
   const findPerson = (person: Person) =>
     !!selectedPeople.find((p) => p.id === person.id);
   const filterPerson = (person: Person) =>
-    selectedPeople.filter((p) => p.id === person.id);
+    selectedPeople.filter((p) => p.id !== person.id);
   const handleChange = (person: Person) => {
-    setSelectedPeople(
-      findPerson(person) ? filterPerson(person) : [...selectedPeople, person]
-    );
+    const filteredPeople = findPerson(person)
+      ? filterPerson(person)
+      : [...selectedPeople, person];
+    dispatch(addFavorites(filteredPeople));
+    setSelectedPeople(filteredPeople);
   };
   const [selectedPeople, setSelectedPeople] = useState<Person[]>([]);
   const columns = [
@@ -27,8 +33,8 @@ const Home: React.FC<HomeInterface> = () => {
       renderCell: (params: GridRenderCellParams) => (
         <Checkbox
           size="small"
-          //checked={findPerson(params.row)}
-          onChange={() => handleChange(params.row.id)}
+          checked={findPerson(params.row)}
+          onChange={() => handleChange(params.row)}
         />
       ),
     },
@@ -58,7 +64,6 @@ const Home: React.FC<HomeInterface> = () => {
       rows={People}
       columns={columns}
       disableColumnSelector
-      //checkboxSelection
       disableRowSelectionOnClick
       autoHeight
       initialState={{
