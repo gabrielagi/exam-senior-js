@@ -20,12 +20,14 @@ const Home: React.FC<HomeInterface> = () => {
   const columns = [
     {
       field: "actions",
+      type: "actions",
+      sortable: false,
       headerName: "Confirmed",
       minWidth: 50,
       renderCell: (params: GridRenderCellParams) => (
         <Checkbox
           size="small"
-          //     checked={findPerson(params.row.id)}
+          //checked={findPerson(params.row)}
           onChange={() => handleChange(params.row.id)}
         />
       ),
@@ -56,6 +58,7 @@ const Home: React.FC<HomeInterface> = () => {
       rows={People}
       columns={columns}
       disableColumnSelector
+      //checkboxSelection
       disableRowSelectionOnClick
       autoHeight
       initialState={{
