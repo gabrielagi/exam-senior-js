@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { DataGrid, GridRenderCellParams } from "@mui/x-data-grid";
 import { People } from "@/data/people";
 import { Person } from "@/models";
 import { Checkbox } from "@mui/material";
-import { useDispatch } from "react-redux";
-import { addFavorites } from "@/redux/states";
+import { useDispatch, useSelector } from "react-redux";
+import { addFavorites, addPeople } from "@/redux/states";
+import store, { AppStore } from "@/redux/store";
 
 export interface HomeInterface {}
 
@@ -22,6 +23,7 @@ const Home: React.FC<HomeInterface> = () => {
     dispatch(addFavorites(filteredPeople));
     setSelectedPeople(filteredPeople);
   };
+  const storePeople = useSelector((store: AppStore) => store.people);
   const [selectedPeople, setSelectedPeople] = useState<Person[]>([]);
   const columns = [
     {
@@ -59,9 +61,14 @@ const Home: React.FC<HomeInterface> = () => {
       renderCell: (params: GridRenderCellParams) => <>{params.value}</>,
     },
   ];
+
+  useEffect(() => {
+    dispatch(addPeople(People));
+  });
+
   return (
     <DataGrid
-      rows={People}
+      rows={storePeople}
       columns={columns}
       disableColumnSelector
       disableRowSelectionOnClick
