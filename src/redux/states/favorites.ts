@@ -14,9 +14,17 @@ export const favoritesSlice = createSlice({
       setLocalStorage(LocalStorageTypes.FAVORITES, state);
       return action.payload;
     },
+    removeFavorite: (state, action) => {
+      const filteredState = state.filter(
+        (p: Person) => p.id !== action.payload.id
+      );
+      setLocalStorage(LocalStorageTypes.FAVORITES, filteredState);
+      return filteredState;
+    },
   },
 });
 
 export const { addFavorites } = favoritesSlice.actions;
+export const { removeFavorite } = favoritesSlice.actions;
 
 export default favoritesSlice.reducer;

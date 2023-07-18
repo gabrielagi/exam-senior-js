@@ -59,6 +59,12 @@ const PeopleTable: React.FC<PeopleTableProps> = () => {
       flex: 1,
       renderCell: (params: GridRenderCellParams) => <>{params.value}</>,
     },
+    {
+      field: "levelOfHappiness",
+      headerName: "Level of Happiness",
+      flex: 1,
+      renderCell: (params: GridRenderCellParams) => <>{params.value}</>,
+    },
   ];
 
   return (

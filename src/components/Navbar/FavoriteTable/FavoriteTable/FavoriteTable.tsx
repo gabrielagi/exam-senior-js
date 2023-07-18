@@ -1,9 +1,11 @@
 import { Person } from "@/models";
 import { addFavorites } from "@/redux/states";
 import { AppStore } from "@/redux/store";
-import { Checkbox } from "@mui/material";
+import { IconButton } from "@mui/material";
+import { Delete } from "@mui/icons-material";
 import { GridRenderCellParams, DataGrid } from "@mui/x-data-grid";
 import React, { useState } from "react";
+import { removeFavorite } from "@/redux/states";
 import { useDispatch, useSelector } from "react-redux";
 
 export interface FavoriteTableProps {}
@@ -24,6 +26,11 @@ const FavoriteTable: React.FC<FavoriteTableProps> = () => {
   };
   const storeFavorites = useSelector((store: AppStore) => store.favorites);
   const [selectedPeople, setSelectedPeople] = useState<Person[]>([]);
+
+  const handleClick = (person: Person) => {
+    dispatch(removeFavorite(person));
+  };
+
   const columns = [
     {
       field: "actions",
@@ -32,14 +39,20 @@ const FavoriteTable: React.FC<FavoriteTableProps> = () => {
       headerName: "Confirmed",
       minWidth: 50,
       renderCell: (params: GridRenderCellParams) => (
-        <Checkbox
-          size="small"
-          checked={findPerson(params.row)}
-          onChange={() => handleChange(params.row)}
-        />
+        <>
+          {
+            <IconButton
+              color="secondary"
+              aria-label="favorites"
+              component="label"
+              onClick={() => handleClick(params.row)}
+            >
+              <Delete />
+            </IconButton>
+          }
+        </>
       ),
     },
-
     {
       field: "name",
       headerName: "Name",
@@ -56,6 +69,12 @@ const FavoriteTable: React.FC<FavoriteTableProps> = () => {
     {
       field: "company",
       headerName: "Company",
+      flex: 1,
+      renderCell: (params: GridRenderCellParams) => <>{params.value}</>,
+    },
+    {
+      field: "levelOfHappiness",
+      headerName: "Level of Happiness",
       flex: 1,
       renderCell: (params: GridRenderCellParams) => <>{params.value}</>,
     },
